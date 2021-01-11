@@ -1,6 +1,10 @@
 let transactions = [];
 let myChart;
 
+window.addEventListener('load', () => {
+  registerSW();
+});
+
 fetch("/api/transaction")
   .then(response => {
     return response.json();
@@ -150,4 +154,14 @@ document.querySelector("#add-btn").onclick = function() {
 
 document.querySelector("#sub-btn").onclick = function() {
   sendTransaction(false);
+};
+
+async function registerSW() {
+  if ('serviceWorker' in navigator) {
+    try {
+      await navigator.serviceWorker.register('./sw.js');
+    } catch (e) {
+      console.log('SW registration failed');
+    }
+  }
 };
