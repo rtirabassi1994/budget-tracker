@@ -1,9 +1,15 @@
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js", { scope: "/" })
+    .then(() => console.log("Service Worker registered successfully."))
+    .catch(error => console.log("Service Worker registration failed:", error));
+}
+
 let transactions = [];
 let myChart;
 
-window.addEventListener('load', () => {
-  registerSW();
-});
+// window.addEventListener('load', () => {
+//   registerSW();
+// });
 
 fetch("/api/transaction")
   .then(response => {
@@ -156,12 +162,12 @@ document.querySelector("#sub-btn").onclick = function() {
   sendTransaction(false);
 };
 
-async function registerSW() {
-  if ('serviceWorker' in navigator) {
-    try {
-      await navigator.serviceWorker.register('./sw.js');
-    } catch (e) {
-      console.log('SW registration failed');
-    }
-  }
-};
+// async function registerSW() {
+//   if ('serviceWorker' in navigator) {
+//     try {
+//       await navigator.serviceWorker.register('./sw.js');
+//     } catch (e) {
+//       console.log('SW registration failed');
+//     }
+//   }
+// };
